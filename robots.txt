@@ -1,0 +1,15 @@
+# Allow crawling bots to scrape everything
+User-agent: Googlebot
+Disallow: 
+
+User-agent: Bingbot
+Disallow: 
+
+User-agent: AdsBot-Google
+Disallow: 
+
+User-agent: baidu
+Disallow: 
+
+User-agent: *
+Disallow: 
