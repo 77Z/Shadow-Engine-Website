@@ -32,7 +32,7 @@ body {
 }
 
 .top-content h1 {
-    margin-top: 15%;
+    margin-top: 30px;
 }
 
 .content {
@@ -46,7 +46,7 @@ body {
 }
 
 .content img {
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .download-btn {
@@ -107,7 +107,19 @@ p {
 }
 
 .loading {
-    height: 200px;
+    width: 100%;
+    max-width: 200px;
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
+}
+
+.scrots {
+    width: 100%;
+    max-width: 800px;
+}
+
+footer {
+    color: #fff;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
