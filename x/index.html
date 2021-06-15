@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Shadow Engine</title>
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			/* global.css from Shadow Engine */
+			body {
+				background: #222;
+				color: #fff;
+				font-family: "Montserrat", sans-serif;
+				user-select: none;
+				outline: none;
+			}
+
+			::selection {
+				background: #ff4500;
+			}
+
+			input {
+				caret-color: #ff4500;
+			}
+
+			code {
+				user-select: text;
+				background: #424242;
+				border-radius: 3px;
+				padding: 10px;
+			}
+
+			button {
+				background: #ff4500;
+				cursor: pointer;
+				border: none;
+				color: #fff;
+				padding: 10px 20px;
+			}
+			/* END */
+
+			/* pluginInstall.css from Shadow Engine */
+			.icon-col {
+				position: fixed;
+				height: 100%;
+				width: 90px;
+				left: 10px;
+			}
+
+			.icon-col img {
+				margin-top: 70px;
+				border-radius: 10px;
+			}
+
+			.content-col {
+				position: fixed;
+				left: 110px;
+				top: 70px;
+				height: 100%;
+			}
+			/* END */
+
+			/* Native CSS */
+			.head {
+				position: fixed;
+				top: 0;
+				left: 0;
+				background: #424242;
+				width: 100%;
+				height: 50px;
+			}
+
+			.head a {
+				text-decoration: none;
+				color: #fff;
+				font-size: 40px;
+				margin-left: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="icon-col" id="icon-col">
+			<!-- <img src="../../media/loading.png" height="90" width="90" /> -->
+		</div>
+		<div class="content-col">
+			<h1 id="name">Resolving Plugin Name...</h1>
+			<p id="verAndAuthor">Version ?.?.? By ???????</p>
+			<code id="visiblePluginId">Waiting for Plugin ID...</code>
+			<br />
+			<br />
+			<button id="send">Send To Shadow</button>
+		</div>
+
+		<div class="head">
+			<a href="https://shadow.77zsite.tk">Shadow Engine</a>
+		</div>
+
+		<script>
+			var id = document.location.search.substr(3);
+
+			document.getElementById("visiblePluginId").innerText = id;
+
+			document.getElementById("send").addEventListener("click", function () {
+				document.location.href = "shadow-engine://plugin," + id;
+			});
+
+			fetch(id + "/plug.sec").then(async (response) => {
+				if (!response.ok) {
+					throw new Error("ERR: HTTP Error " + response.status);
+				}
+				let data = await response.text();
+				document.getElementById("name").innerText = strippedConfigurationReader(
+					data,
+					"pretty"
+				);
+
+				document.getElementById("verAndAuthor").innerText =
+					"Version " +
+					strippedConfigurationReader(data, "version") +
+					" By " +
+					strippedConfigurationReader(data, "author");
+			});
+
+			fetch(id + "/icon.png").then(async (response) => {
+				if (!response.ok) {
+					throw new Error("ERR: HTTP Error " + response.status);
+				}
+
+				let imageData = await response.blob();
+
+				var imageElement = document.createElement("img");
+				imageElement.height = 90;
+				imageElement.width = 90;
+				imageElement.src = URL.createObjectURL(imageData);
+				document.getElementById("icon-col").appendChild(imageElement);
+			});
+
+			function strippedConfigurationReader(config, setting) {
+				let split = config.split("\n");
+
+				for (let i = 0; i < split.length; i++) {
+					if (split[i].split(":")[0] == setting) {
+						// Some string manipulation to grab the value
+						return split[i].substr(setting.length + 1).replace("\r", ""); // and get rid of those nasty carriage returns if the input is CRLF
+					}
+				}
+
+				//Return null if value isn't found
+				return null;
+			}
+		</script>
+	</body>
+</html>
