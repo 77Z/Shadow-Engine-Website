@@ -95,6 +95,18 @@
 				border: 1px solid #fff;
 				padding: 5px;
 			}
+
+			#md-area a {
+				color: #00ffff;
+			}
+
+			#md-area a:visited {
+				color: #00ffff;
+			}
+
+			#md-area code {
+				padding: 0px;
+			}
 		</style>
 	</head>
 	<body>
@@ -120,6 +132,10 @@
 
 		<script>
 			var id = document.location.search.substr(3);
+
+			if (id == "") {
+				document.location.href = "browse.html";
+			}
 
 			document.getElementById("visiblePluginId").innerText = id;
 
