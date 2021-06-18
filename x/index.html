@@ -10,6 +10,8 @@
 			href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
 			rel="stylesheet"
 		/>
+		<script src="../marked.min.js"></script>
+		<script src="../purify.min.js"></script>
 		<style>
 			/* global.css from Shadow Engine */
 			body {
@@ -50,18 +52,17 @@
 				height: 100%;
 				width: 90px;
 				left: 10px;
+				top: 70px;
 			}
 
 			.icon-col img {
-				margin-top: 70px;
 				border-radius: 10px;
 			}
 
 			.content-col {
-				position: fixed;
+				position: absolute;
 				left: 110px;
 				top: 70px;
-				height: 100%;
 			}
 			/* END */
 
@@ -81,6 +82,19 @@
 				font-size: 40px;
 				margin-left: 10px;
 			}
+
+			#md-area {
+				width: clamp(45ch, 50%, 75ch);
+				margin-top: 300px;
+				margin-left: 110px;
+				user-select: text;
+			}
+
+			th,
+			td {
+				border: 1px solid #fff;
+				padding: 5px;
+			}
 		</style>
 	</head>
 	<body>
@@ -94,10 +108,14 @@
 			<br />
 			<br />
 			<button id="send">Send To Shadow</button>
+			<br /><br /><br />
+		</div>
+		<div id="md-area">
+			<h1>Loading README...</h1>
 		</div>
 
 		<div class="head">
-			<a href="https://shadow.77zsite.tk">Shadow Engine</a>
+			<a href="https://shadow.77z.dev">Shadow Engine</a>
 		</div>
 
 		<script>
@@ -126,6 +144,7 @@
 					strippedConfigurationReader(data, "author");
 			});
 
+			// Get and display plugin icon
 			fetch(id + "/icon.png").then(async (response) => {
 				if (!response.ok) {
 					throw new Error("ERR: HTTP Error " + response.status);
@@ -138,6 +157,18 @@
 				imageElement.width = 90;
 				imageElement.src = URL.createObjectURL(imageData);
 				document.getElementById("icon-col").appendChild(imageElement);
+			});
+
+			// Display plugin README
+			fetch(id + "/README.md").then(async (response) => {
+				if (!response.ok) {
+					throw new Error("ERR: HTTP Error " + response.status);
+				}
+				let data = await response.text();
+				document.getElementById("md-area").innerHTML = DOMPurify.sanitize(
+					marked(data),
+					{ USE_PROFILES: { html: true } }
+				);
 			});
 
 			function strippedConfigurationReader(config, setting) {
