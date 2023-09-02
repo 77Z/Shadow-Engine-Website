@@ -2,132 +2,49 @@
 
 * {
 	font-family: Montserrat, sans-serif;
-}
-
-body {
-	overflow-x: hidden;
-	background: #333;
-}
-
-.top-back {
-	background: black;
-	position: absolute;
-	top: -500px;
-	left: -25%;
-	height: calc(60% + 500px);
-	width: 150%;
-	transform: rotate(6deg);
-}
-
-.top-content {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	height: 55%;
-	width: 100%;
-	color: #fff;
-	display: flex;
-	justify-content: center;
 	user-select: none;
 }
 
-.top-content h1 {
-	margin-top: 30px;
+html, body {
+	background: #000000;
+	color: #ffffff;
+	margin: 0;
+	padding: 0;
+	height: 100%;
 }
 
-.content {
-	position: absolute;
-	top: 80%;
-	border-top: 3px solid white;
-	width: 80%;
-	left: 10%;
-	height: 500px;
+.primary {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+.primary img {
+	width: 10vw;
+}
+
+.text-center {
 	text-align: center;
 }
 
-.content img {
-	margin-top: 15px;
+::-webkit-scrollbar {
+	width: 13px;
 }
 
-.download-btn {
-	border: none;
-	background: transparent;
-	color: #fff;
-	cursor: pointer;
-	border-right: 2px solid #fff;
-	font-size: 20px;
-	position: relative;
+::-webkit-scrollbar-track {
+	background: #1b1b1b;
+	border: 3px solid #222222;
+	border-radius: 9999px;
 }
 
-.download-btn:hover {
-	text-decoration: underline;
+::-webkit-scrollbar-thumb {
+	background: #585858;
+	border-radius: 9999px;
+	border: 3px solid #222222;
 }
 
-.download-btn::before {
-	content: "";
-	position: absolute;
-	top: 2px;
-	left: -20px;
-	height: 20px;
-	width: 20px;
-	background-image: url("img/download.svg");
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-}
-
-.github-btn {
-	border: none;
-	background: transparent;
-	color: #fff;
-	cursor: pointer;
-	font-size: 20px;
-	position: relative;
-}
-
-.github-btn:hover {
-	text-decoration: underline;
-}
-
-.github-btn::before {
-	content: "";
-	position: absolute;
-	top: 2px;
-	right: -20px;
-	height: 20px;
-	width: 20px;
-	background-image: url("img/github.png");
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-}
-
-p {
-	color: #fff;
-}
-
-.loading {
-	width: 100%;
-	max-width: 200px;
-	image-rendering: pixelated;
-	image-rendering: -moz-crisp-edges;
-}
-
-.scrots {
-	width: 100%;
-	max-width: 800px;
-}
-
-footer {
-	color: #fff;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-#x {
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	color: #fff;
-	cursor: pointer;
+::-webkit-scrollbar-thumb:hover {
+	background: #2e2e2e;
 }
